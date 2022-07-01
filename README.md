@@ -18,7 +18,7 @@
  - CSV는 동작부까지 구현, DB는 미정
  
 ### 🔮 예시
-command id         command
+       command id         command
        ------------------------------------------
           1             create an item
           2             modify an item
