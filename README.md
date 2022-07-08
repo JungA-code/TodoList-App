@@ -13,8 +13,9 @@
 
 
 ### 🔮 설계
+ - Data 형태인 Item Class
  - Command를 처리하는 Class
- - CSV File 또는 DB를 이용할 수 있는 각자의 Interface
+ - CSV File 또는 DB를 이용할 수 있는 Interface 구현
  - CSV는 동작부까지 구현, DB는 미정
 
 ### 🔮 빌드 
