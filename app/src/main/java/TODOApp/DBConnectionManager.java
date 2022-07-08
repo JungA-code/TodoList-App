@@ -1,6 +1,6 @@
 package TODOApp;
 
-public class DBConnectionManager implements DataService {
+class DBConnectionManager implements DataService {
 
 	@Override
 	public void initialize() {

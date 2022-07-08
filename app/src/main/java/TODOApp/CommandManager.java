@@ -1,16 +1,16 @@
 package TODOApp;
 
-import java.util.*;
+import java.util.Scanner;
 
-public class CommandManager {
+class CommandManager {
     private DataService dataService;
 
-    public CommandManager(DataService dataService) {
+    protected CommandManager(DataService dataService) {
         this.dataService = dataService;
         dataService.initialize();
     }
 
-    public void inputCommand() {
+    protected void inputCommand() {
         Scanner scanner = new Scanner(System.in);
         String command = "";
 
@@ -58,7 +58,7 @@ public class CommandManager {
         scanner.close();
     }
 
-    public void commandPrintFunction() {
+    private void commandPrintFunction() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("------------------------------------------\n" +
                                 "command id         command\n" +
@@ -73,25 +73,25 @@ public class CommandManager {
         System.out.println(stringBuilder.toString());
     }
 
-    public void createItemFunction(String todoTask) {
+    private void createItemFunction(String todoTask) {
         dataService.createItem(new Item(todoTask));
     }
 
-    public void modifyItemFunction(int modifyIdx, String  modifyTask) {
+    private void modifyItemFunction(int modifyIdx, String  modifyTask) {
         modifyIdx--;
         dataService.modifyItem(modifyIdx, new Item(modifyTask));
     }
 
-    public void showItemFunction() {
+    private void showItemFunction() {
         dataService.showItem();
     }
 
-    public void toogleItemFunction(int toogleIdx) {
+    private void toogleItemFunction(int toogleIdx) {
         toogleIdx--;
         dataService.toogleItem(toogleIdx);
     }
 
-    public void deleteItemFunction(int delIdx) {
+    private void deleteItemFunction(int delIdx) {
         dataService.deleteItem(delIdx);
     }
 }

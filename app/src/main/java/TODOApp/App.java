@@ -3,7 +3,7 @@
  */
 package TODOApp;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
@@ -12,7 +12,7 @@ public class App {
         DataService dataService;
         String fileFormatCmd = "";
 
-        System.out.print("file Choose the save format (1): CSV, (2): DB, default is CSV");
+        System.out.print("file Choose the save format (1): CSV, (2): DB, default is CSV : ");
         fileFormatCmd = scanner.nextLine();
 
         if (fileFormatCmd.equals("2")) {

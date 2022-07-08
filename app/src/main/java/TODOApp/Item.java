@@ -4,26 +4,26 @@ public class Item {
 		private String todo;
 		private String status;
 
-		public Item(String todo) {
+		protected Item(String todo) {
 			this.todo = todo;
 			this.status = "N";
 		}
 
-		public Item(String todo, String status) {
+		protected Item(String todo, String status) {
 			this.todo = todo;
 			this.status = status;
 		}
 
-		public void setTodo(String todo) {
+		protected void setTodo(String todo) {
 			this.todo = todo;
 		}
-		public void setStatus(String status) {
+		protected void setStatus(String status) {
 			this.status = status;
 		}
-		public String getTodo() {
+		protected String getTodo() {
 			return todo;
 		}
-		public String getStatus() {
+		protected String getStatus() {
 			return status;
 		}
 }

@@ -1,15 +1,22 @@
 package TODOApp;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class CSVFileManager implements DataService {
-
-	final static public String FILE_NAME =  "./data/TodolistData.csv";
-    ArrayList<Item> itemList;
+class CSVFileManager implements DataService {
+    private static String path = System.getProperty("user.dir");
+	final static public String FILE_NAME =  path + "/OUTPUT/DATA/TodolistData.csv";
+    private File csv = new File(FILE_NAME);
+    private ArrayList<Item> itemList;
 
     public void initialize() {
-        File csv = new File(FILE_NAME);
 		BufferedReader br = null;
 		String line = "";
         List<String> csvList = new ArrayList<String>();
@@ -42,108 +49,23 @@ public class CSVFileManager implements DataService {
     }
 
     public void createItem(Item item) {
-        File csv = new File(FILE_NAME);
-		BufferedWriter bw = null;
-
         itemList.add(item);
-
-        try {
-            int lastIdx = itemList.size() - 1;
-            bw = new BufferedWriter(new FileWriter(csv, true));
-            String line = itemList.get(lastIdx).getTodo() + "," + itemList.get(lastIdx).getStatus();
-            bw.write(line);
-            bw.newLine();
-        } catch(FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (bw != null) {
-                    bw.flush();
-                    bw.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        restoreCSV();
     }
 
     public void modifyItem(int index, Item item) {
-        File csv = new File(FILE_NAME);
-		BufferedWriter bw = null;
-
-        try {
-            bw = new BufferedWriter(new FileWriter(csv, false));
-            itemList.set(index, item);
-            for (int i = 0; i < itemList.size(); i++) {
-                bw.write(itemList.get(i).getTodo() + "," + itemList.get(i).getStatus());
-                bw.newLine();
-            }
-        } catch(FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (bw != null) {
-                    bw.flush();
-                    bw.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        itemList.set(index, item);
+        restoreCSV();
     }
 
     public void deleteItem(int index) {
-        File csv = new File(FILE_NAME);
-		BufferedWriter bw = null;
-
         if (index == 0) {
             itemList.clear();
-            try {
-                bw = new BufferedWriter(new FileWriter(csv, false));
-                bw.flush();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (bw != null) {
-                        bw.flush();
-                        bw.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         } else if (index <= itemList.size()) {
             index -= 1;
             itemList.remove(index);
-            try {
-                bw = new BufferedWriter(new FileWriter(csv, false));
-                for (int i = 0; i < itemList.size(); i++) {
-                    bw.write(itemList.get(i).getTodo() + "," + itemList.get(i).getStatus());
-                    bw.newLine();
-                }
-            }
-             catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (bw != null) {
-                        bw.flush();
-                        bw.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
+        restoreCSV();
     }
 
     public void toogleItem(int index) {
@@ -152,29 +74,7 @@ public class CSVFileManager implements DataService {
         } else {
             itemList.get(index).setStatus("N");
         }
-
-        File csv = new File(FILE_NAME);
-		BufferedWriter bw = null;
-        try {
-            bw = new BufferedWriter(new FileWriter(csv, false));
-            for (int i = 0; i < itemList.size(); i++) {
-                bw.write(itemList.get(i).getTodo() + "," + itemList.get(i).getStatus());
-                bw.newLine();
-            }
-        } catch(FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (bw != null) {
-                    bw.flush();
-                    bw.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        restoreCSV();
     }
 
     public void showItem() {
@@ -194,5 +94,31 @@ public class CSVFileManager implements DataService {
         stringBuilder.append("--------------------------------------------\n");
 
         System.out.println(stringBuilder.toString());
+    }
+
+
+    private void restoreCSV() {
+		BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter(csv, false));
+            for (int i = 0; i < itemList.size(); i++) {
+                bw.write(itemList.get(i).getTodo() + "," + itemList.get(i).getStatus());
+                bw.newLine();
+            }
+        }
+         catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (bw != null) {
+                    bw.flush();
+                    bw.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
