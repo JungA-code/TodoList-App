@@ -17,7 +17,7 @@
  - CSV File 또는 DB를 이용할 수 있는 각자의 Interface
  - CSV는 동작부까지 구현, DB는 미정
 
-### 🔮 빌드
+### 🔮 빌드 
  - 빌드와 실행 : ./build.sh
  - 빌드 : ./build.sh build
  - 실행 : ./build.sh run
